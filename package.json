@@ -1,0 +1,22 @@
+{
+  "name": "mongodb",
+  "version": "1.0.0",
+  "description": "Tutorial mongodb",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PatrickHeiisen/mongodb.git"
+  },
+  "author": "Patrick G",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PatrickHeiisen/mongodb/issues"
+  },
+  "homepage": "https://github.com/PatrickHeiisen/mongodb#readme",
+  "dependencies": {
+    "mongoose": "^8.10.1"
+  }
+}
