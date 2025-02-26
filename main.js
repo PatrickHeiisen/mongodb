@@ -25,12 +25,12 @@ const criarCliente = async (nomeCli, foneCli, cpfCli) => {
         )
         // a linha abaixo salva os dados do cliente no banco
         await novoCliente.save()
-        console.log("Cliente adicionado com sucesso")
+        console.log("Cliente adicionado com sucesso.")
 
     } catch (error) {
         // Tratamento de exceções especificas
         if (error.code = 11000) {
-            console.log(`Erro: O CPF ${cpfCli} ja esta cadastrado`)
+            console.log(`Erro: O CPF ${cpfCli} ja esta cadastrado.`)
         } else {
             console.log(error)
         }
@@ -65,7 +65,7 @@ const buscarCliente = async (nome) => {
 
         // validação se não existir o cliente pesquisado
         if (nomesClientes.length === 0) {
-            console.log("Cliente não cadastrado")
+            console.log("Cliente não cadastrado.")
         } else {
             const match = stringSimilarity.findBestMatch(nome, nomesClientes)
 
@@ -86,6 +86,55 @@ const buscarCliente = async (nome) => {
     }
 }
 
+// CRUD Update - Função para alterar os dados de um cliente
+// ATENÇÃO Obrigatoriamente o update precisa ser feito
+// com base no ID de cliente
+const  atualizarCliente = async (id, nomeCli, foneCli, cpfCli) => {
+    try {
+        const cliente = await clienteModel.findByIdAndUpdate(
+            id,
+            {
+                nomeCliente: nomeCli,
+                foneCliente: foneCli,
+                cpf: cpfCli
+            },
+            {
+                new: true,
+                runValidators: true
+            }
+        )
+        // validação (retorno do banco)
+        if(!cliente){
+            console.log("Cliente não encontrado.")
+        }else{
+            console.log("Dados do cliente alterados com sucesso.")
+        }
+    } catch (error) {
+        console.log(error)
+        
+    }
+}
+
+// CRUD - Delete - Função para excluir um cliente
+// ATENÇÃO !!! - obrigatoriamente a exclusão e feita peli ID
+const deletarCliente = async (id) => {
+    try {
+        // A linha abaixo exclui o cliente do banco de dados
+        const cliente = await clienteModel.findByIdAndDelete(id)
+        // validação
+        if (!cliente) {
+            console.log("Cliente não encontrado.")
+        } else {
+            console.log("Cliente Deletado.")            
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+// ========================================================================
+
 // execução da aplicação
 const app = async () => {
     await conectar()
@@ -95,8 +144,14 @@ const app = async () => {
     // CRUD - Read (Exemplo 1 - Listar todos os clientes) 
     //await listarCliente()
 
+    // CRUD - Update
+    //await atualizarCliente('67b904c51f86f7a301468e72', 'Maria', '1199841247', '593.859.900-80')
+
     // CRUD - Read (Exemplo 2 - Buscar cliente)
-    await buscarCliente("patrick")
+    //await buscarCliente("Maria")
+
+    // CRUD - Delete
+    //await deletarCliente('67b90e41b6eb7c37751645ec')
 
     await desconectar()
 }
