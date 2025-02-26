@@ -5,7 +5,6 @@
 
 // Importação do modulo de conexão (database.js)
 const { conectar, desconectar } = require('./database.js')
-const Clientes = require('./src/models/Clientes.js')
 
 // Importação do modelo de dados de clientes
 const clienteModel = require('./src/models/Clientes.js')
@@ -139,7 +138,7 @@ const deletarCliente = async (id) => {
 const app = async () => {
     await conectar()
     // CRUD - Create
-    //await criarCliente("Patrick Silva", "11971263806", "687.998.710-55")
+    await criarCliente("Patrick Silva", "11971263806", "687.998.710-55")
 
     // CRUD - Read (Exemplo 1 - Listar todos os clientes) 
     //await listarCliente()
